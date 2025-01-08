@@ -104,13 +104,8 @@ runs:
             Write-Host "Installing latest version"
             Install-Module Maester -Force
           }
-          Import-Module Maester -NoClobber
-          # Check version installed
+          # Display version installed
           Get-Module -Name Maester -ListAvailable
-          Get-Command -Name Invoke-MtGraphRequest
-          (Get-Command -Name Invoke-MtGraphRequest).ModuleName
-          Invoke-MtGraphRequest -RelativeUri "users" -Filter "displayName eq 'Wes'" -Select "displayName"
-          
 
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
