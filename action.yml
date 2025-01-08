@@ -98,7 +98,7 @@ runs:
 
           # Install Maester
           $usePrerelease = $false
-          if (-not [string]::IsNullOrWhiteSpace( '${{ inputs.install_prerelease}}' ){
+          if (-not [string]::IsNullOrWhiteSpace( '${{ inputs.install_prerelease}}' )){
             $usePrerelease = '${{ inputs.install_prerelease}}'
           }
           if ( $usePrerelease -eq $true ){
