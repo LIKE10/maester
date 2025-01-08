@@ -101,8 +101,7 @@ runs:
             Install-Module Maester -AllowPrerelease -Force
           } else {
             Install-Module Maester -Force
-            Get-Command -Module Maester
-            Import-Module Maester
+            Get-Module -Name Maester -ListAvailable
           }
 
           # Configure test results
