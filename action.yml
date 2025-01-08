@@ -97,11 +97,7 @@ runs:
           Connect-MgGraph -AccessToken $accessToken -NoWelcome
 
           # Install Maester
-          $usePrerelease = $false
-          if (-not [string]::IsNullOrWhiteSpace( '${{ inputs.install_prerelease}}' )){
-            $usePrerelease = '${{ inputs.install_prerelease}}'
-          }
-          if ( $usePrerelease -eq $true ){
+          if ( '${{ inputs.install_prerelease}}' -eq $true ){
             Write-Host "Installing prerelease version"
             Install-Module Maester -AllowPrerelease -Force
           } else {
