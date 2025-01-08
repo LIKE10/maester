@@ -105,11 +105,7 @@ runs:
             Install-Module Maester -Force
           }
           # Display version installed
-          Get-Module -Name Maester -ListAvailable
-
-          # delete duplicate scripts
-          Write-Host "Deleting all .ps1 files in ${{ github.workspace }}/public-tests/"
-          Remove-Item -Path ${{ github.workspace }}/public-tests/* -include *.ps1
+          Get-Module -Name Maester -ListAvailable | Select ModuleType,Version,Prerelease,Name
 
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
