@@ -99,10 +99,10 @@ runs:
           # Install Maester
           if ( '${{ inputs.install_prerelease}}' -eq $true ){
             Write-Host "Installing prerelease version"
-            Install-Module Maester -AllowPrerelease -Force -Scope AllUsers
+            sudo Install-Module Maester -AllowPrerelease -Force -Scope AllUsers
           } else {
             Write-Host "Installing latest version"
-            Install-Module Maester -Force -Scope AllUsers
+            sudo Install-Module Maester -Force -Scope AllUsers
           }
           # Display version installed
           Get-Module -Name Maester -ListAvailable | Select ModuleType,Version,Prerelease,Name
