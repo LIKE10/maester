@@ -102,10 +102,15 @@ runs:
             $usePrerelease = '${{ inputs.install_prerelease}}'
           }
           if ( $usePrerelease -eq $true ){
+            Write-Host "Installing prerelease version"
             Install-Module Maester -AllowPrerelease -Force
           } else {
+            Write-Host "Installing latest version"
             Install-Module Maester -Force
           }
+          # Check version installed
+          Get-Module -Name Maester -ListAvailable
+          Get-Command -Module Maester
 
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
