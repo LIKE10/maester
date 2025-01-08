@@ -102,6 +102,7 @@ runs:
           } else {
             Install-Module Maester -Force
             Get-Command -Module Maester
+            Import-Module Maester
           }
 
           # Configure test results
