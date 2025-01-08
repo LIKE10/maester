@@ -105,8 +105,8 @@ runs:
             Install-Module Maester -Force
           }
           # Display version installed
-          Get-Module -Name Maester -ListAvailable | Select ModuleType,Version,Prerelease,Name
-
+          Get-Module -Name Maester | Select ModuleType,Version,Prerelease,Name
+          
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
           $PesterConfiguration.Output.Verbosity = '${{ inputs.pester_verbosity }}'
