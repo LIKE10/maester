@@ -104,10 +104,12 @@ runs:
             Write-Host "Installing latest version"
             Install-Module Maester -Force
           }
+          Import-Module Maester -NoClobber
           # Check version installed
           Get-Module -Name Maester -ListAvailable
-          Get-Module -Name Microsoft.Graph -ListAvailable
-          Get-Module -Name Az -ListAvailable
+          Get-Command -Name Invoke-MtGraphRequest
+          (Get-Command -Name Invoke-MtGraphRequest).ModuleName
+          Invoke-MtGraph -RelativeUri "users" -Filter "displayName eq 'Wes'" -Select "displayName" -Top 10
           
 
           # Configure test results
@@ -164,7 +166,7 @@ runs:
             $summary = Get-Content test-results/test-results.md
             Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $summary
           }
-        azPSVersion: "13.0.0"
+        azPSVersion: "latest"
 
     - name: Archive Maester Html Report
       uses: actions/upload-artifact@v4
