@@ -109,7 +109,7 @@ runs:
           Get-Module -Name Maester -ListAvailable
           Get-Command -Name Invoke-MtGraphRequest
           (Get-Command -Name Invoke-MtGraphRequest).ModuleName
-          Invoke-MtGraph -RelativeUri "users" -Filter "displayName eq 'Wes'" -Select "displayName" -Top 10
+          Invoke-MtGraphRequest -RelativeUri "users" -Filter "displayName eq 'Wes'" -Select "displayName" -Top 10
           
 
           # Configure test results
