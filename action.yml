@@ -108,7 +108,8 @@ runs:
           Get-Module -Name Maester -ListAvailable
 
           # delete duplicate scripts
-          Remove-Item -Path '${{ github.workspace }}/public-tests/*' -include *.ps1
+          Write-Host "Deleting all .ps1 files in ${{ github.workspace }}/public-tests/"
+          Remove-Item -Path ${{ github.workspace }}/public-tests/* -include *.ps1
 
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
