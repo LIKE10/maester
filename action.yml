@@ -107,6 +107,9 @@ runs:
           # Display version installed
           Get-Module -Name Maester -ListAvailable
 
+          # delete duplicate scripts
+          Remove-Item -Path '${{ github.workspace }}/public-tests/*' -include *.ps1
+
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
           $PesterConfiguration.Output.Verbosity = '${{ inputs.pester_verbosity }}'
