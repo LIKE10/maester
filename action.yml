@@ -106,7 +106,9 @@ runs:
           }
           # Check version installed
           Get-Module -Name Maester -ListAvailable
-          Get-Command -Module Maester
+          Get-Module -Name Microsoft.Graph -ListAvailable
+          Get-Module -Name Az -ListAvailable
+          
 
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
@@ -162,7 +164,7 @@ runs:
             $summary = Get-Content test-results/test-results.md
             Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $summary
           }
-        azPSVersion: "latest"
+        azPSVersion: "13.0.0"
 
     - name: Archive Maester Html Report
       uses: actions/upload-artifact@v4
