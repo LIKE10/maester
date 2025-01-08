@@ -97,11 +97,14 @@ runs:
           Connect-MgGraph -AccessToken $accessToken -NoWelcome
 
           # Install Maester
-          if ( [string]::IsNullOrWhiteSpace( '${{ inputs.install_prerelease}}' ) -eq $true ){
+          $usePrerelease = $false
+          if (-not [string]::IsNullOrWhiteSpace( '${{ inputs.install_prerelease}}' ){
+            $usePrerelease = '${{ inputs.install_prerelease}}'
+          }
+          if ( $usePrerelease -eq $true ){
             Install-Module Maester -AllowPrerelease -Force
           } else {
             Install-Module Maester -Force
-            Get-Module -Name Maester -ListAvailable
           }
 
           # Configure test results
