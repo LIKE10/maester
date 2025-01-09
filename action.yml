@@ -102,6 +102,7 @@ runs:
             Install-Module Maester -AllowPrerelease -Force
           } else {
             Write-Host "Installing latest version"
+            Install-Module Microsoft.Graph -Force
             Install-Module Maester -Force
           }
           # Display version installed
