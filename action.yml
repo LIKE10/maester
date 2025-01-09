@@ -108,8 +108,6 @@ runs:
           Get-Module -Name Maester -ListAvailable
           Get-Module -Name Microsoft.Graph.Authentication -ListAvailable
           Get-Module -Name Microsoft.Graph -ListAvailable
-          Remove-Module -FullyQualifiedName @{ModuleName = "Microsoft.Graph.Authentication"; ModuleVersion = "2.25.0"}
-          Get-Module -Name Microsoft.Graph.Authentication -ListAvailable
           
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
