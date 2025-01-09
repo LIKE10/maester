@@ -102,13 +102,13 @@ runs:
             Install-Module Maester -AllowPrerelease -Force
           } else {
             Write-Host "Installing latest version"
-            Install-Module Microsoft.Graph -Force
             Install-Module Maester -Force
           }
           # Display version installed
           Get-Module -Name Maester -ListAvailable
           Get-Module -Name Microsoft.Graph.Authentication -ListAvailable
           Get-Module -Name Microsoft.Graph -ListAvailable
+          Remove-Module -FullyQualifiedName @{ModuleName = "Microsoft.Graph.Authentication"; ModuleVersion = "2.9.1"}
           
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
