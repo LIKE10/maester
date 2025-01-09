@@ -105,10 +105,9 @@ runs:
             Install-Module Maester -Force
           }
           # Display version installed
-          Get-Module -Name Maester | Select ModuleType,Version,Prerelease,Name
-          
-          # Install dependent module
-          install-module -Name Microsoft.Graph.Authentication -Force
+          Get-Module -Name Maester -ListAvailable
+          Get-Module -Name Microsoft.Graph.Authentication -ListAvailable
+          Get-Module -Name Microsoft.Graph -ListAvailable
           
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
