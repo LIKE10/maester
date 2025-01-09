@@ -107,6 +107,9 @@ runs:
           # Display version installed
           Get-Module -Name Maester | Select ModuleType,Version,Prerelease,Name
           
+          # Install dependent module
+          install-module -Name Microsoft.Graph.Authentication -Force
+          
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
           $PesterConfiguration.Output.Verbosity = '${{ inputs.pester_verbosity }}'
