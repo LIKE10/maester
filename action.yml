@@ -58,7 +58,16 @@ inputs:
     description: "If set, telemetry information will not be logged."
     required: false
     default: false
-
+  teams_teamid:
+    description: "The Teams team where the results should be posted."
+    required: false
+    default: ""
+  teams_teamchannelid:
+    description: "The channel where the message should be posted."
+    required: false
+    default: ""
+  
+  
 runs:
   using: "composite"
   steps:
@@ -151,6 +160,18 @@ runs:
                   Write-Host "Mail notification will be sent to: $Recipients"
               } else {
                   Write-Warning "Mail recipients are not provided. Skipping mail notification."
+              }
+          }
+
+          # Check if team Id and team channel are provided
+          if ( [string]::IsNullOrWhiteSpace( '${{ inputs.teams_teamid }}' ) -eq $false ) {
+              if ( [string]::IsNullOrWhiteSpace( '${{ inputs.teams_teamchannelid }}' ) -eq $false ) {
+                  # Add teams parameters
+                  $MaesterParameters.Add( 'TeamId', '${{ inputs.teams_teamid }}' )
+                  $MaesterParameters.Add( 'TeamChannelId', '${{ inputs.teams_teamchannelid }}' )
+                  Write-Host "Teams notification will be sent to: $Recipients"
+              } else {
+                  Write-Warning "Team Channel not provided. Skipping team notification."
               }
           }
 
