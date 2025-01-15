@@ -58,16 +58,12 @@ inputs:
     description: "If set, telemetry information will not be logged."
     required: false
     default: false
-  teams_teamid:
-    description: "The Teams team where the results should be posted."
-    required: false
-    default: ""
-  teams_teamchannelid:
+  teams_teamchannelwebhookuri:
     description: "The channel where the message should be posted."
     required: false
     default: ""
-  
-  
+
+
 runs:
   using: "composite"
   steps:
@@ -113,15 +109,15 @@ runs:
             Write-Host "Installing latest version"
             Install-Module Maester -Force
           }
-          
+
           # Delete Microsoft.Graph.Authentication 2.9.1
-          Write-Host "Delete module version 2.9.1 of Microsoft.Graph.Authentication"  
+          Write-Host "Delete module version 2.9.1 of Microsoft.Graph.Authentication"
           rm -r /home/runner/.local/share/powershell/Modules/Microsoft.Graph.Authentication/2.9.1
-          
+
           # Display version installed
           Get-Module -Name Maester -ListAvailable
           Get-Module -Name Microsoft.Graph.Authentication -ListAvailable
-          
+
           # Configure test results
           $PesterConfiguration = New-PesterConfiguration
           $PesterConfiguration.Output.Verbosity = '${{ inputs.pester_verbosity }}'
@@ -163,16 +159,14 @@ runs:
               }
           }
 
-          # Check if team Id and team channel are provided
-          if ( [string]::IsNullOrWhiteSpace( '${{ inputs.teams_teamid }}' ) -eq $false ) {
-              if ( [string]::IsNullOrWhiteSpace( '${{ inputs.teams_teamchannelid }}' ) -eq $false ) {
-                  # Add teams parameters
-                  $MaesterParameters.Add( 'TeamId', '${{ inputs.teams_teamid }}' )
-                  $MaesterParameters.Add( 'TeamChannelId', '${{ inputs.teams_teamchannelid }}' )
-                  Write-Host "Teams notification will be sent to: $Recipients"
-              } else {
-                  Write-Warning "Team Channel not provided. Skipping team notification."
-              }
+          # Check if team channel webhook uri is provided
+          if ( [string]::IsNullOrWhiteSpace( '${{ inputs.teams_teamchannelwebhookuri }}' ) -eq $false ) {
+            # Add teams parameters
+            $MaesterParameters.Add( 'TeamChannelWebhookUri', '${{ inputs.teams_teamchannelwebhookuri }}' )
+            $MaesterParameters.Add( 'MailTestResultsUri', '${{ inputs.mail_testresultsuri }}' )
+            Write-Host "Teams notification will be sent to a Teams Channel using the Webhook."
+          } else {
+            Write-Warning "Team Channel Webhook not provided. Skipping team notification."
           }
 
           # Check if disable telemetry is provided
